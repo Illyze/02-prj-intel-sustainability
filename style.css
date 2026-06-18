@@ -1,1 +1,162 @@
-/* Add your CSS here */
+/* Set background color to blue */
+body {
+  background-color: rgb(10, 10, 80);
+  color: white;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Header as centered container */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120vh;
+  padding: 40px;
+  perspective: 1400px;
+}
+
+.flip-card {
+  width: 100%;
+  max-width: 720px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.flip-card.state-0 .flip-card-inner {
+  transform: rotateX(0deg);
+}
+
+.flip-card.state-1 .flip-card-inner {
+  transform: rotateX(90deg);
+}
+
+.flip-card.state-2 .flip-card-inner {
+  transform: rotateX(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 520px;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 70px 60px;
+  text-align: center;
+  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.8s ease;
+  box-shadow: -40px 40px 140px rgba(24, 174, 224, 0.512), -40px -40px 120px rgba(111, 35, 211, 0.512), 40px 40px 120px rgba(115, 44, 143, 0.505), 40px -40px 100px rgba(123, 31, 234, 0.512);
+  transform-origin: center center;
+  will-change: opacity, visibility, transform;
+}
+
+.flip-card-front {
+  opacity: 1;
+  visibility: visible;
+  z-index: 3;
+  background: linear-gradient(135deg, rgba(173, 216, 230, 0.95), rgba(147, 112, 219, 0.95));
+  transform: rotateX(0deg) translateZ(260px);
+}
+
+.flip-card-back.card-stage-1 {
+  opacity: 0;
+  visibility: hidden;
+  transform: rotateX(-90deg) translateZ(260px);
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(147, 112, 219, 0.95), rgba(173, 216, 230, 0.95));
+}
+
+.flip-card-back.card-stage-2 {
+  opacity: 0;
+  visibility: hidden;
+  transform: rotateX(-180deg) translateZ(260px);
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(147, 112, 219, 0.95), rgba(173, 216, 230, 0.95));
+}
+
+.flip-card.state-0 .flip-card-front {
+  opacity: 1;
+  visibility: visible;
+}
+
+.flip-card.state-0 .flip-card-back {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flip-card.state-1 .flip-card-front {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flip-card.state-1 .flip-card-back.card-stage-1 {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.flip-card.state-1 .flip-card-back.card-stage-2 {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flip-card.state-2 .flip-card-front {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flip-card.state-2 .flip-card-back.card-stage-1 {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flip-card.state-2 .flip-card-back.card-stage-2 {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.flip-card-front img,
+.flip-card-back img {
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 40px;
+}
+
+.flip-card-back.card-stage-1,
+.flip-card-back.card-stage-2 {
+  box-shadow: -40px 40px 140px rgba(24, 174, 224, 0.512), -40px -40px 120px rgba(111, 35, 211, 0.512), 40px 40px 120px rgba(115, 44, 143, 0.505), 40px -40px 100px rgba(123, 31, 234, 0.512);
+}
+
+.flip-card-back h2,
+.flip-card-back h3 {
+  margin: 16px 0;
+}
+
+/* Resize and style the Intel logo */
+header div img {
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 40px;
+}
+
+/* Header fonts */
+h1, h2, h3, h4, h5, h6 {
+  font-family: intel-one-display-medium, Helvetica, Arial, sans-serif;
+}
+
+/* Paragraph fonts */
+p {
+  font-family: intel-one-body-text, Helvetica, Arial, sans-serif;
+}
