@@ -1,7 +1,14 @@
 /* Set background color to blue */
 body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: rgb(10, 10, 80);
   color: white;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 body.no-scroll {
@@ -12,11 +19,72 @@ body.no-scroll {
 /* Header as centered container */
 header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 120vh;
-  padding: 40px;
+  width: 100%;
+  min-height: 50vh;
+  padding: 0px 0px 0px;
+  gap: 36px;
   perspective: 1400px;
+  background: radial-gradient(circle at top, rgba(37, 109, 210, 0.20), transparent 22%),
+              linear-gradient(180deg, #4276e7 0%, #1866f5 42%, #103a94 100%);
+}
+
+.hero-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 920px;
+  gap: 18px;
+  padding: 0 24px;
+}
+
+.hero-logo {
+  max-width: 220px;
+  width: 100%;
+}
+
+.hero-divider {
+  width: 100%;
+  max-width: 920px;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(173, 216, 230, 0.92), rgba(147, 196, 255, 0.92));
+  margin: 0 auto 48px;
+}
+
+.cube-section {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 24px 96px;
+}
+
+.flip-card {
+  width: 100%;
+  max-width: 720px;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  max-width: 720px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+}
+
+.hero-divider {
+  width: 100%;
+  max-width: 720px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(173, 216, 230, 0.95), rgba(147, 196, 255, 0.95));
+  margin: 0 auto;
 }
 
 .flip-card {
@@ -32,19 +100,14 @@ header {
   transition: transform 0.8s ease;
 }
 
-.flip-card.state-0 .flip-card-inner {
+.flip-card.cube-step-front .flip-card-inner {
   transform: rotateX(0deg);
 }
 
-.flip-card.state-1 .flip-card-inner {
-  transform: rotateX(90deg);
-}
-
-.flip-card.state-2 .flip-card-inner {
+.flip-card.cube-step-back .flip-card-inner {
   transform: rotateX(180deg);
 }
 
-.flip-card-front,
 .flip-card-back {
   position: absolute;
   top: 0;
@@ -61,67 +124,45 @@ header {
   will-change: opacity, visibility, transform;
 }
 
-.flip-card-front {
-  opacity: 1;
-  visibility: visible;
-  z-index: 3;
-  background: linear-gradient(135deg, rgba(173, 216, 230, 0.95), rgba(147, 112, 219, 0.95));
-  transform: rotateX(0deg) translateZ(260px);
-}
-
 .flip-card-back.card-stage-1 {
   opacity: 0;
   visibility: hidden;
-  transform: rotateX(-90deg) translateZ(260px);
+  transform: rotateX(0deg) translateZ(260px);
   z-index: 1;
-  background: linear-gradient(135deg, rgba(147, 112, 219, 0.95), rgba(173, 216, 230, 0.95));
+  background: linear-gradient(135deg, rgba(4, 30, 70, 0.98), rgba(12, 52, 103, 0.95));
 }
 
 .flip-card-back.card-stage-2 {
   opacity: 0;
   visibility: hidden;
-  transform: rotateX(-180deg) translateZ(260px);
+  transform: rotateX(180deg) translateZ(260px);
   z-index: 1;
-  background: linear-gradient(135deg, rgba(147, 112, 219, 0.95), rgba(173, 216, 230, 0.95));
+  background: linear-gradient(135deg, rgba(3, 24, 61, 0.98), rgba(14, 64, 123, 0.95));
 }
 
-.flip-card.state-0 .flip-card-front {
-  opacity: 1;
-  visibility: visible;
-}
-
-.flip-card.state-0 .flip-card-back {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.flip-card.state-1 .flip-card-front {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.flip-card.state-1 .flip-card-back.card-stage-1 {
+.flip-card.state-0 .flip-card-back.card-stage-1 {
   opacity: 1;
   visibility: visible;
   z-index: 2;
 }
 
-.flip-card.state-1 .flip-card-back.card-stage-2 {
+.flip-card.cube-step-front .flip-card-back.card-stage-1 {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.flip-card.cube-step-front .flip-card-back.card-stage-2 {
   opacity: 0;
   visibility: hidden;
 }
 
-.flip-card.state-2 .flip-card-front {
+.flip-card.cube-step-back .flip-card-back.card-stage-1 {
   opacity: 0;
   visibility: hidden;
 }
 
-.flip-card.state-2 .flip-card-back.card-stage-1 {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.flip-card.state-2 .flip-card-back.card-stage-2 {
+.flip-card.cube-step-back .flip-card-back.card-stage-2 {
   opacity: 1;
   visibility: visible;
   z-index: 2;
