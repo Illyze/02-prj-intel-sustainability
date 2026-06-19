@@ -80,14 +80,24 @@
     const swipeThreshold = 50;
 
     function updateCubeStep() {
-      flipCardInner.style.transform = `rotateX(${-cubeStep * 40}deg)`;
-      
-      faces.forEach((face, index) => {
-        face.classList.toggle('visible', index === cubeStep);
-      });
-      
-      body.classList.toggle('no-scroll', cubeStep > 0);
-    }
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Mobile = vertical
+    flipCardInner.style.transform = `rotateX(${cubeStep * 40}deg)`;
+  } else {
+    // Desktop = horizontal
+    flipCardInner.style.transform = `rotateY(${-cubeStep * 40}deg)`;
+  }
+
+  faces.forEach((face, index) => {
+    face.classList.toggle('visible', index === cubeStep);
+  });
+
+  body.classList.toggle('no-scroll', cubeStep > 0);
+}
+
+window.addEventListener('resize', updateCubeStep);
 
     function advanceStep(delta) {
       if (delta > 0 && cubeStep < maxStep) {
@@ -100,19 +110,36 @@
 
     updateCubeStep();
 
-    window.addEventListener('wheel', (event) => {
-      if (cubeStep > 0) {
-        event.preventDefault();
-      }
+    const flipCard = document.querySelector('.flip-card');
 
-      wheelAccum += event.deltaY;
-      if (Math.abs(wheelAccum) < wheelThreshold) {
-        return;
-      }
+let cardHovered = false;
 
-      advanceStep(wheelAccum);
-      wheelAccum = 0;
-    }, { passive: false });
+flipCard.addEventListener('mouseenter', () => {
+  cardHovered = true;
+});
+
+flipCard.addEventListener('mouseleave', () => {
+  cardHovered = false;
+});
+
+flipCard.addEventListener('wheel', (event) => {
+
+  // Ignore if mouse isn't on card
+  if (!cardHovered) return;
+
+  // Stop page scrolling only while interacting with card
+  event.preventDefault();
+
+  wheelAccum += event.deltaY;
+
+  if (Math.abs(wheelAccum) < wheelThreshold) {
+    return;
+  }
+
+  advanceStep(wheelAccum);
+  wheelAccum = 0;
+
+}, { passive: false });
 
     window.addEventListener('touchstart', (event) => {
       touchStartY = event.touches[0]?.clientY || 0;
